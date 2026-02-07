@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartGuide - User Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="user-styles.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="container">
+    <aside class="sidebar">
+      <h1 class="logo">SmartGuide</h1>
+      <div class="user-badge">
+        <img src="https://ui-avatars.com/api/?name=Juan+Dela+Cruz&background=10b981&color=fff" class="user-avatar" alt="User">
+        <div class="user-details">
+          <p class="user-name">Juan Dela Cruz</p>
+          <p class="user-role-text">User</p>
+        </div>
+      </div>
+      
+      <nav class="nav-menu">
+        <a href="#" class="nav-link active" data-page="dashboard">
+          <span class="icon">📊</span> My Device
+        </a>
+        <a href="#" class="nav-link" data-page="location">
+          <span class="icon">📍</span> My Location
+        </a>
+        <a href="#" class="nav-link" data-page="history">
+          <span class="icon">📜</span> Trip History
+        </a>
+        <a href="#" class="nav-link" data-page="emergency">
+          <span class="icon">🚨</span> Emergency Contacts
+        </a>
+        <a href="#" class="nav-link" data-page="settings">
+          <span class="icon">⚙️</span> Settings
+        </a>
+        <a href="#" class="nav-link" data-page="help">
+          <span class="icon">❓</span> Help & Support
+        </a>
+      </nav>
+
+      <button class="logout-btn" id="logoutBtn">
+        <span class="icon">🚪</span> Logout
+      </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Header -->
+      <header class="header">
+        <h2 class="page-title">My SmartGuide Device</h2>
+        <div class="header-actions">
+          <button class="quick-action-btn" id="quickEmergency">
+            🚨 Emergency
+          </button>
+          <div class="connection-status">
+            <span class="status-dot online"></span>
+            <span>Connected</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Quick Stats -->
+      <section class="stats-grid">
+
+        <div class="stat-card">
+          <h3 class="stat-label">Device Status</h3>
+          <p class="stat-value status-online" id="deviceStatus">Active</p>
+          <small class="stat-subtitle">Last sync: Just now</small>
+        </div>
+
+        <div class="stat-card">
+          <h3 class="stat-label">Battery</h3>
+          <p class="stat-value battery-level" id="batteryLevel">78%</p>
+          <div class="battery-bar">
+            <div class="battery-fill" id="batteryFill" style="width: 78%"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <h3 class="stat-label">Today's Distance</h3>
+          <p class="stat-value" style="color: var(--purple);" id="distanceWalked">2.4 km</p>
+          <small class="stat-subtitle">Great progress!</small>
+        </div>
+
+        <div class="stat-card">
+          <h3 class="stat-label">Obstacles Avoided</h3>
+          <p class="stat-value obstacles" id="obstaclesCount">12</p>
+          <small class="stat-subtitle">Today</small>
+        </div>
+
+      </section>
+
+      <!-- Main Features -->
+      <section class="content-grid">
+
+        <!-- Current Location -->
+        <div class="feature-card large">
+          <div class="card-header">
+            <h3 class="section-title">Current Location</h3>
+            <div class="location-badge">
+              <span class="location-icon">📍</span>
+              <span>GPS Active</span>
+            </div>
+          </div>
+          
+          <div class="map-container-user">
+            <div class="map-placeholder" id="map">
+              <div class="map-overlay">
+                <span class="map-icon">🗺️</span>
+                <p>Real-time Location</p>
+                <small id="currentLocation">Cagayan de Oro City, Philippines</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="location-info">
+            <div class="info-item">
+              <span class="info-label">Address:</span>
+              <span class="info-value">Corrales Ave, Cagayan de Oro</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">GPS Accuracy:</span>
+              <span class="info-value">High (± 5m)</span>
+            </div>
+          </div>
+
+          <button class="feature-btn" id="shareLocationBtn">
+            📤 Share My Location
+          </button>
+        </div>
+
+        <!-- Voice Controls -->
+        <div class="feature-card">
+          <h3 class="section-title">Voice Assistant</h3>
+          
+          <div class="voice-visualizer">
+            <div class="voice-wave"></div>
+            <div class="voice-wave"></div>
+            <div class="voice-wave"></div>
+            <div class="voice-wave"></div>
+            <div class="voice-wave"></div>
+          </div>
+
+          <p class="voice-status-text">Ready to assist</p>
+
+          <div class="voice-controls-user">
+            <button class="voice-control-btn primary" id="testVoice">
+              🔊 Test Voice
+            </button>
+            <button class="voice-control-btn" id="adjustVolume">
+              🔈 Volume: 80%
+            </button>
+            <button class="voice-control-btn" id="changeSpeed">
+              ⚡ Speed: Normal
+            </button>
+          </div>
+
+          <div class="voice-settings">
+            <label class="setting-label">
+              <input type="checkbox" id="autoAnnounce" checked>
+              <span>Auto-announce obstacles</span>
+            </label>
+            <label class="setting-label">
+              <input type="checkbox" id="streetNames" checked>
+              <span>Announce street names</span>
+            </label>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="activity-section">
+        <div class="section-header">
+          <h3 class="section-title">Recent Activity</h3>
+          <select class="filter-select" id="activityFilter">
+            <option value="all">All Events</option>
+            <option value="obstacles">Obstacles</option>
+            <option value="navigation">Navigation</option>
+            <option value="alerts">Alerts</option>
+          </select>
+        </div>
+
+        <div class="activity-timeline" id="activityTimeline">
+          <div class="timeline-item">
+            <div class="timeline-marker obstacle"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <h4>Obstacle Detected</h4>
+                <span class="timeline-time">2 min ago</span>
+              </div>
+              <p>Object detected 45cm ahead - successfully avoided</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker navigation"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <h4>Navigation Update</h4>
+                <span class="timeline-time">5 min ago</span>
+              </div>
+              <p>Turned right onto Corrales Avenue</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker success"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <h4>Battery Charged</h4>
+                <span class="timeline-time">1 hour ago</span>
+              </div>
+              <p>Battery fully charged to 100%</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Emergency Contacts -->
+      <section class="contacts-section">
+        <h3 class="section-title">Emergency Contacts</h3>
+        <div class="contacts-grid">
+          
+          <div class="contact-card">
+            <div class="contact-avatar">👨</div>
+            <div class="contact-info">
+              <h4>Pedro Dela Cruz</h4>
+              <p>Primary Caregiver</p>
+              <p class="contact-phone">+63 917 123 4567</p>
+            </div>
+            <button class="contact-call-btn" data-contact="Pedro">
+              📞 Call
+            </button>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-avatar">👩</div>
+            <div class="contact-info">
+              <h4>Maria Santos</h4>
+              <p>Secondary Contact</p>
+              <p class="contact-phone">+63 918 765 4321</p>
+            </div>
+            <button class="contact-call-btn" data-contact="Maria">
+              📞 Call
+            </button>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-avatar">🚑</div>
+            <div class="contact-info">
+              <h4>Emergency Services</h4>
+              <p>911 Hotline</p>
+              <p class="contact-phone">911</p>
+            </div>
+            <button class="contact-call-btn emergency" data-contact="911">
+              🚨 Call
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="notificationModal">
+    <div class="modal-content">
+      <span class="modal-close" id="closeModal">&times;</span>
+      <h3 id="modalTitle">Notification</h3>
+      <p id="modalMessage">This is a notification message.</p>
+      <button class="modal-btn" id="modalOk">OK</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="user-script.js"></script>
+</body>
+</html>

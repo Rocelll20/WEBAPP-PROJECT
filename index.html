@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartGuide - IoT Blind Stick Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="container">
+    <aside class="sidebar">
+      <h1 class="logo">SmartGuide</h1>
+      <div class="admin-badge">
+        <img src="https://ui-avatars.com/api/?name=Admin&background=ef4444&color=fff" class="admin-avatar" alt="Admin">
+        <div class="admin-details">
+          <p class="admin-name">Administrator</p>
+          <p class="admin-role-text">Full Access</p>
+        </div>
+      </div>
+      <nav class="nav-menu">
+        <a href="#" class="nav-link active" data-page="dashboard">
+          <span class="icon">📊</span> Dashboard
+        </a>
+        <a href="#" class="nav-link" data-page="location">
+          <span class="icon">📍</span> Live Location
+        </a>
+        <a href="#" class="nav-link" data-page="device">
+          <span class="icon">🔧</span> Device Status
+        </a>
+        <a href="#" class="nav-link" data-page="alerts">
+          <span class="icon">🚨</span> Emergency Alerts
+        </a>
+        <a href="#" class="nav-link" data-page="profile">
+          <span class="icon">👤</span> User Profile
+        </a>
+        <a href="#" class="nav-link" data-page="settings">
+          <span class="icon">⚙️</span> Settings
+        </a>
+      </nav>
+
+      <button class="logout-btn" id="adminLogoutBtn">
+        <span class="icon">🚪</span> Logout
+      </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Header -->
+      <header class="header">
+        <h2 class="page-title">Dashboard</h2>
+        <div class="user-info">
+          <span class="user-role">Admin</span>
+          <img src="https://ui-avatars.com/api/?name=Admin&background=4F46E5&color=fff" class="profile-img" alt="Profile">
+        </div>
+      </header>
+
+      <!-- Stats Cards -->
+      <section class="stats-grid">
+
+        <div class="stat-card">
+          <h3 class="stat-label">Device Status</h3>
+          <p class="stat-value status-online" id="deviceStatus">Online</p>
+          <div class="status-indicator online"></div>
+        </div>
+
+        <div class="stat-card">
+          <h3 class="stat-label">Battery Level</h3>
+          <p class="stat-value battery-level" id="batteryLevel">78%</p>
+          <div class="battery-bar">
+            <div class="battery-fill" id="batteryFill" style="width: 78%"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <h3 class="stat-label">Obstacles Today</h3>
+          <p class="stat-value obstacles" id="obstaclesCount">12</p>
+          <small class="stat-subtitle">Last detected: 2 min ago</small>
+        </div>
+
+        <div class="stat-card">
+          <h3 class="stat-label">Emergency Status</h3>
+          <p class="stat-value emergency" id="emergencyStatus">None</p>
+          <button class="emergency-btn" id="emergencyBtn">Test Alert</button>
+        </div>
+
+      </section>
+
+      <!-- Map and Info -->
+      <section class="content-grid">
+
+        <!-- Map Section -->
+        <div class="map-container">
+          <h3 class="section-title">Live Location</h3>
+          <div class="map-placeholder" id="map">
+            <div class="map-overlay">
+              <span class="map-icon">🗺️</span>
+              <p>Real-time GPS Tracking</p>
+              <small>Current Location: Cebu City, Philippines</small>
+            </div>
+          </div>
+          <div class="map-controls">
+            <button class="map-btn" id="refreshLocation">🔄 Refresh</button>
+            <button class="map-btn" id="centerMap">📍 Center</button>
+          </div>
+        </div>
+
+        <!-- User Info -->
+        <div class="user-card">
+          <h3 class="section-title">User Information</h3>
+
+          <div class="user-details">
+            <div class="detail-item">
+              <span class="detail-icon">👤</span>
+              <div>
+                <p class="detail-label">Name</p>
+                <p class="detail-value">Juan Dela Cruz</p>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-icon">🔖</span>
+              <div>
+                <p class="detail-label">Device ID</p>
+                <p class="detail-value">SG-1023</p>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-icon">🕒</span>
+              <div>
+                <p class="detail-label">Last Update</p>
+                <p class="detail-value" id="lastUpdate">10:45 AM</p>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-icon">📍</span>
+              <div>
+                <p class="detail-label">Location</p>
+                <p class="detail-value">Cebu City</p>
+              </div>
+            </div>
+          </div>
+
+          <button class="cta-btn" id="callCaregiver">
+            📞 Call Caregiver
+          </button>
+
+          <button class="cta-btn secondary" id="sendMessage">
+            💬 Send Message
+          </button>
+        </div>
+
+      </section>
+
+      <!-- Activity Log -->
+      <section class="activity-section">
+        <div class="section-header">
+          <h3 class="section-title">Activity Log</h3>
+          <button class="filter-btn" id="filterBtn">Filter ⏷</button>
+        </div>
+
+        <div class="activity-table-container">
+          <table class="activity-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Event</th>
+                <th>Details</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="activityLog">
+              <tr>
+                <td>09:15 AM</td>
+                <td>Obstacle Detected</td>
+                <td>Distance: 30cm, Direction: Front</td>
+                <td><span class="status-badge warning">Warning</span></td>
+              </tr>
+              <tr>
+                <td>10:00 AM</td>
+                <td>Location Updated</td>
+                <td>GPS Signal: Strong</td>
+                <td><span class="status-badge success">Success</span></td>
+              </tr>
+              <tr>
+                <td>10:30 AM</td>
+                <td>Battery Check</td>
+                <td>Level: 78%</td>
+                <td><span class="status-badge normal">Normal</span></td>
+              </tr>
+              <tr>
+                <td>10:45 AM</td>
+                <td>Voice Guidance</td>
+                <td>Message: "Turn right ahead"</td>
+                <td><span class="status-badge info">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Voice Commands Panel -->
+      <section class="voice-panel">
+        <h3 class="section-title">Voice Guidance Controls</h3>
+        <div class="voice-controls">
+          <button class="voice-btn" id="testVoice">🔊 Test Voice</button>
+          <button class="voice-btn" id="adjustVolume">🔈 Volume</button>
+          <button class="voice-btn" id="changeLanguage">🌐 Language</button>
+          <div class="voice-status">
+            <span class="voice-indicator active"></span>
+            <span>Voice System: Active</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal for notifications -->
+  <div class="modal" id="notificationModal">
+    <div class="modal-content">
+      <span class="modal-close" id="closeModal">&times;</span>
+      <h3 id="modalTitle">Notification</h3>
+      <p id="modalMessage">This is a notification message.</p>
+      <button class="modal-btn" id="modalOk">OK</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
